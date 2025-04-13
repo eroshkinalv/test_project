@@ -7,7 +7,7 @@ stripe.api_key = STRIPE_API_KEY
 def create_stripe_product(unit):
     """Создает продукт в страйпе."""
 
-    product = stripe.Product.create(name=unit.id)
+    product = stripe.Product.create(name=unit.name)
 
     return product
 
@@ -17,7 +17,7 @@ def create_stripe_price(amount, product):
 
     price = stripe.Price.create(
         currency="rub",
-        unit_amount=amount * 100,
+        unit_amount=int(amount * 100),
         # recurring={"interval": "month"}, #  Регулярное списание средств (рассрочка)
         product_data={"name": product},
     )

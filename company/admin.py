@@ -10,7 +10,7 @@ def delete_debt(modeladmin, request, queryset):
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "city")
+    list_display = ("name", "city")
     search_fields = ("name", "city")
     actions = [delete_debt]
 

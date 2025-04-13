@@ -1,5 +1,7 @@
 import django_filters
 from drf_yasg import renderers
+from rest_framework.decorators import action
+from rest_framework.generics import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 
 from company.models import Company, Item
@@ -32,7 +34,7 @@ class CompanyViewSet(ModelViewSet):
             if not Item.objects.filter(**data, owner=self.request.user).exists():
                 Item.objects.create(**data, owner=self.request.user)
 
-    def perform_update(self, serializer):
+    def perform_update(self, serializer, pk=None):
 
         company = serializer.save()
 

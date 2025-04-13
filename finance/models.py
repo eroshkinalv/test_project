@@ -12,6 +12,7 @@ class ItemPrice(models.Model):
     price_per_item = models.PositiveIntegerField(verbose_name="Цена за единцу товара")
     quantity_available = models.PositiveIntegerField(default=0, verbose_name="Количество изделий на складе")
 
+
     class Meta:
         verbose_name = "Цена"
         verbose_name_plural = "Цены"
@@ -47,8 +48,8 @@ class Cart(models.Model):
 class Payment(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.SET_NULL, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True, verbose_name="Дата оплаты")
-    cart = models.ForeignKey(
-        Cart, verbose_name="Оплаченный товар", on_delete=models.SET_NULL, null=True, blank=True
+    company = models.ForeignKey(
+        Company, verbose_name="Баланс по счету", on_delete=models.SET_NULL, null=True, blank=True
     )
 
     quantity = models.PositiveIntegerField(verbose_name="Количество товара", null=True, blank=True)
@@ -74,12 +75,3 @@ class Payment(models.Model):
 
     def __int__(self):
         return self.payment_amount
-
-
-class BalanceSheet(models.Model):
-
-    company = models.ForeignKey(Company, verbose_name="Пользователь", on_delete=models.SET_NULL, null=True, blank=True)
-    owner = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.SET_NULL, null=True, blank=True)
-    balance = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
-    updated_at = models.DateTimeField(auto_now_add=True, verbose_name="Время обновления")

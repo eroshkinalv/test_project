@@ -1,6 +1,10 @@
+from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from finance.models import Payment, ItemPrice, OrderItem, Cart, BalanceSheet
+from company.models import Company
+from company.serializers import CompanySerializer
+from finance.models import Payment, ItemPrice, OrderItem, Cart
+from users.serializers import UserSerializer
 
 
 class PaymentSerializer(ModelSerializer):
@@ -13,7 +17,7 @@ class ItemPriceSerializer(ModelSerializer):
 
     class Meta:
         model = ItemPrice
-        exclude = ("owner",)
+        fields = "__all__"
 
 
 class OrderItemSerializer(ModelSerializer):
@@ -30,11 +34,3 @@ class CartSerializer(ModelSerializer):
         model = Cart
         fields = "__all__"
         read_only_fields = ["owner", "total", "created_at"]
-
-
-class BalanceSerializer(ModelSerializer):
-
-    class Meta:
-        model = BalanceSheet
-        fields = "__all__"
-        read_only_fields = ["owner", "updated_at", "created_at"]

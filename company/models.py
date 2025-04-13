@@ -25,7 +25,7 @@ class Company(models.Model):
 
     """Модель компании"""
 
-    owner = models.ForeignKey("users.User", verbose_name="Пользователь", on_delete=models.CASCADE, blank=True, null=True)
+    owner = models.OneToOneField("users.User", verbose_name="Пользователь", on_delete=models.CASCADE, blank=True, null=True, related_name="owner")
 
     COMPANY_TYPES = (
         ('Завод', 'Завод'),
@@ -48,7 +48,7 @@ class Company(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
-    balance = models.IntegerField(verbose_name="Задолженность", default=0)
+    balance = models.DecimalField(verbose_name="Задолженность", default=0, max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = "Фирма"
