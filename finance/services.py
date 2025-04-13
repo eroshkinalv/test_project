@@ -7,7 +7,7 @@ stripe.api_key = STRIPE_API_KEY
 def create_stripe_product(unit):
     """Создает продукт в страйпе."""
 
-    product = stripe.Product.create(name=unit.name)
+    product = stripe.Product.create(name=unit.id)
 
     return product
 
